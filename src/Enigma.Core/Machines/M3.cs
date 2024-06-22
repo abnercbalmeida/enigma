@@ -2,7 +2,7 @@
 
 public class M3 : Machine
 {
-    public M3(Reflector reflector, Rotor[] rotors) : base(reflector, rotors)
+    public M3(Reflector reflector, Rotor[] rotors, Plugboard plugboard) : base(reflector, rotors, plugboard)
     {
         if (_rotors.Length != 3)
         {
@@ -17,18 +17,19 @@ public class M3 : Machine
             throw new ArgumentException($"{letter} is not a letter");
         }
 
-        if (_rotors[^2].IsOnNotch())
+        if (_rotors[^2].IsOnNotch)
         {
             _rotors[^3].Turn();
             _rotors[^2].Turn();
         }
-        else if (_rotors[^1].IsOnNotch())
+        else if (_rotors[^1].IsOnNotch)
         {
             _rotors[^2].Turn();
         }
 
         _rotors[^1].Turn();
 
+        letter = _plugboard.Swap(letter);
         letter = _rotors[^1].Next(letter);
         letter = _rotors[^2].Next(letter);
         letter = _rotors[^3].Next(letter);
@@ -36,6 +37,7 @@ public class M3 : Machine
         letter = _rotors[^3].Prev(letter);
         letter = _rotors[^2].Prev(letter);
         letter = _rotors[^1].Prev(letter);
+        letter = _plugboard.Swap(letter);
 
         return letter;
     }

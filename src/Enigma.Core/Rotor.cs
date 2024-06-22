@@ -1,10 +1,17 @@
 ﻿namespace Enigma.Core;
 
+public class Rotor1(char position) : Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 'Q', position);
+public class Rotor2(char position) : Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 'E', position);
+public class Rotor3(char position) : Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 'V', position);
+
 public abstract class Rotor
 {
     protected string _wiring;
     protected char _notch;
     protected int _position;
+
+    public char Position => GetLetter(_position);
+    public bool IsOnNotch => Position == _notch;
 
     protected Rotor(string wiring, char notch, char position)
     {
@@ -21,16 +28,6 @@ public abstract class Rotor
     private static int GetIndex(char letter)
     {
         return letter - 'A';
-    }
-
-    public char GetPosition()
-    {
-        return GetLetter(_position);
-    }
-
-    public bool IsOnNotch()
-    {
-        return GetLetter(_position) == _notch;
     }
 
     public void Turn()
@@ -50,7 +47,3 @@ public abstract class Rotor
         return GetLetter((_wiring.IndexOf(key) - _position % 26 + 26) % 26);
     }
 }
-
-public class Rotor1(char position) : Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 'Q', position);
-public class Rotor2(char position) : Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 'E', position);
-public class Rotor3(char position) : Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 'V', position);

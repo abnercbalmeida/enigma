@@ -1,5 +1,8 @@
 ﻿namespace Enigma.Core;
 
+public class ReflectorA() : Reflector("EJMZALYXVBWFCRQUONTSPIKHGD");
+public class ReflectorB() : Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
+
 public abstract class Reflector
 {
     protected string _wiring;
@@ -19,6 +22,3 @@ public abstract class Reflector
         return _wiring[GetIndex(letter)];
     }
 }
-
-public class ReflectorA() : Reflector("EJMZALYXVBWFCRQUONTSPIKHGD");
-public class ReflectorB() : Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
