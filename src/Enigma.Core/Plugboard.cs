@@ -20,9 +20,3 @@ public class Plugboard
         return letter;
     }
 }
-
-public readonly struct Plug(char from, char to)
-{
-    public char From { get; } = from;
-    public char To { get; } = to;
-}
