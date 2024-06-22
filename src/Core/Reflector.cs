@@ -2,7 +2,6 @@
 
 public abstract class Reflector
 {
-    private readonly string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     protected string _wiring;
 
     protected Reflector(string wiring)
@@ -10,9 +9,14 @@ public abstract class Reflector
         _wiring = wiring;
     }
 
+    private static int GetIndex(char letter)
+    {
+        return letter - 'A';
+    }
+
     public char Reflect(char letter)
     {
-        return _wiring[_alphabet.IndexOf(letter)];
+        return _wiring[GetIndex(letter)];
     }
 }
 

@@ -2,7 +2,6 @@
 
 public abstract class Rotor
 {
-    private readonly string _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     protected string _wiring;
     protected char _notch;
     protected int _position;
@@ -11,34 +10,44 @@ public abstract class Rotor
     {
         _wiring = wiring;
         _notch = notch;
-        _position = _alphabet.IndexOf(position);
+        _position = GetIndex(position);
+    }
+
+    private static char GetLetter(int position)
+    {
+        return (char)(position + 'A');
+    }
+
+    private static int GetIndex(char letter)
+    {
+        return letter - 'A';
     }
 
     public char GetPosition()
     {
-        return _alphabet[_position];
+        return GetLetter(_position);
     }
 
     public bool IsOnNotch()
     {
-        return _alphabet[_position] == _notch;
+        return GetLetter(_position) == _notch;
     }
 
     public void Turn()
     {
-        _position = (_position + 1) % _alphabet.Length;
+        _position = (_position + 1) % 26;
     }
 
     public char Next(char letter)
     {
-        var key = _wiring[(_alphabet.IndexOf(letter) + _position % _alphabet.Length + _alphabet.Length) % _alphabet.Length];
-        return _alphabet[(_alphabet.IndexOf(key) - _position % _alphabet.Length + _alphabet.Length) % _alphabet.Length];
+        var key = _wiring[(GetIndex(letter) + _position % 26 + 26) % 26];
+        return GetLetter((GetIndex(key) - _position % 26 + 26) % 26);
     }
 
     public char Prev(char letter)
     {
-        var key = _alphabet[(_alphabet.IndexOf(letter) + _position % _alphabet.Length + _alphabet.Length) % _alphabet.Length];
-        return _alphabet[(_wiring.IndexOf(key) - _position % _alphabet.Length + _alphabet.Length) % _alphabet.Length];
+        var key = GetLetter((GetIndex(letter) + _position % 26 + 26) % 26);
+        return GetLetter((_wiring.IndexOf(key) - _position % 26 + 26) % 26);
     }
 }
 
