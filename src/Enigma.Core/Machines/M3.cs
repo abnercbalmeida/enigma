@@ -1,36 +1,16 @@
-﻿using System.Text;
+﻿namespace Enigma.Core.Machines;
 
-namespace Enigma.Core.Machines;
-
-public class M3
+public class M3 : Machine
 {
-    private readonly Reflector _reflector;
-    private readonly Rotor[] _rotors;
-
-    public M3(Reflector reflector, Rotor[] rotors)
+    public M3(Reflector reflector, Rotor[] rotors) : base(reflector, rotors)
     {
-        _reflector = reflector;
-        _rotors = rotors;
-
         if (_rotors.Length != 3)
         {
             throw new ArgumentException($"3 rotors required");
         }
     }
 
-    public string GetRotorPositions()
-    {
-        var positions = new StringBuilder();
-
-        foreach (var rotor in _rotors)
-        {
-            positions.Append(rotor.GetPosition());
-        }
-
-        return positions.ToString();
-    }
-
-    public char PressKey(char letter)
+    public override char PressKey(char letter)
     {
         if (!char.IsLetter(letter))
         {
